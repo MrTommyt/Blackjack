@@ -8,9 +8,6 @@ class Palo(enum.Enum):
     HEARTS = ("Hearts", '♥')
     DIAMONDS = ("Diamonds", '♦')
 
-    def __init__(self, name: str, symbol: str):
-        self.symbol = symbol
-
     @staticmethod
     def getValues() -> list:
         values = []
@@ -51,12 +48,13 @@ class Carta:
         self.valor = valor.value
         self.figura = valor
         self.palo = palo
-        self.simbolo = palo.symbol
+        self.simbolo = palo.value[1]
 
 
 class Baraja:
-    def __init__(self, generar: bool = False, *args):
+    def __init__(self, generar: bool = False):
         self.cartas = []
+        self.valor = self.__valor()
 
         if generar:
             for palo in Palo.getValues():
@@ -64,37 +62,35 @@ class Baraja:
                     carta = Carta(valor, palo)
                     self.cartas.append(carta)
 
-        else:
-            for arg in args:
-                if not isinstance(arg, Carta):
-                    raise TypeError(arg)
-
-                self.cartas.append(arg)
-
     def __len__(self):
         return len(self.cartas)
 
     def __add__(self, other):
         if isinstance(other, Carta):
             self.cartas.append(other)
+            self.valor += other.valor
+
         elif isinstance(other, Baraja):
             self.cartas.extend(other.cartas)
+            self.valor = self.__valor()
+
         elif isinstance(other, list):
             self.cartas += other
+            self.valor = self.__valor()
 
     def __iter__(self):
         return self.cartas
 
-    def __int__(self):
+    def __valor(self) -> int:
         suma = 0
         for carta in self.cartas:
+            print(suma, carta.valor)
             suma += carta.valor
 
         return suma
 
     def getRandom(self) -> Carta:
-        index = random.randint(0, len(self.cartas))
-        carta = self.cartas[index]
+        carta = random.choice(self.cartas)
         self.cartas.remove(carta)
         return carta
 
