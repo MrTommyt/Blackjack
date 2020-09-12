@@ -3,14 +3,13 @@ import random
 
 
 class Palo(enum.Enum):
-    def __init__(self, name: str, symbol: str):
-        self.name = name
-        self.symbol = symbol
+    CLUB = ("Club", '♣')
+    SPADES = ("Spades", '♠')
+    HEARTS = ("Hearts", '♥')
+    DIAMONDS = ("Diamonds", '♦')
 
-    CLUB = "Club", '♣'
-    SPADES = "Spades", '♠'
-    HEARTS = "Hearts", '♥'
-    DIAMONDS = "Diamonds", '♦'
+    def __init__(self, name: str, symbol: str):
+        self.symbol = symbol
 
     @staticmethod
     def getValues() -> list:

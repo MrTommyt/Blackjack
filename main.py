@@ -1,6 +1,4 @@
-from cards import *
-
-Baraja_Partida = Baraja()
+from Partida import Partida
 
 if __name__ == '__main__':
-    pass
+    partida = Partida('Camilo')
