@@ -11,18 +11,17 @@ class Jugador:
         self.mazo = mazo
         self.baraja = Baraja()
 
-        self.cardSum = self.baraja.valor
-
     def hit(self):
         carta = self.mazo.getRandom()
 
         self.baraja + carta
         self.cardSum = self.baraja.valor
 
-        if self.cardSum == 21:
+        if self.cardSum > 21:
             self.acabar = True
 
     def Turnar(self):
+        self.cardSum = self.baraja.valor
         while 1:
             try:
                 print(f'Por medio del siguiente puede seleccionar las acciones que desea realizar')
@@ -33,9 +32,9 @@ class Jugador:
                 if (not isinstance(respuesta, int)) or (not respuesta > 0 and not respuesta < 3):
                     raise TypeError
 
-                if respuesta == '1':
+                if respuesta == 1:
                     self.hit()
-                if respuesta == '2':
+                elif respuesta == 2:
                     self.stay()
                 break
             except TypeError:
@@ -45,8 +44,10 @@ class Jugador:
         self.acabar = True
 
     def mostrarCartas(self):
-        print(f'<{Line}>')
-        print(f'{self.nombre}')
+        space = ' ' * (len(Line) - len(self.nombre) - 7)
+        print(f'{Line}--')
+        print(f'| [{self.baraja.valor}]\t{self.nombre}{space}|')
+        print(f'{Line}--')
         print('|| ', end='')
 
         for i in range(len(self.baraja)):
@@ -55,8 +56,9 @@ class Jugador:
             if i < len(self.baraja) - 1:
                 print(' | ', end='')
 
-        print(' ||')
-        print(f'<{Line}>')
+        print(f' ||')
+        print(f'{Line}--')
+        print()
 
 
 class Crupier(Jugador):

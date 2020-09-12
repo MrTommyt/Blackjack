@@ -17,13 +17,12 @@ class Partida:
         self.jugador.mostrarCartas()
         self.crupier.mostrarCartas()
 
-        print(str(self.jugador.baraja.cartas))
-        print(str(self.crupier.baraja.cartas))
-
         self.crupier.Turnar()
         self.jugador.Turnar()
 
         if self.jugador.acabar or self.crupier.acabar:
+            if not self.crupier.acabar:
+                self.crupier.Turnar()
             self.acabar()
 
     def getCarta(self) -> Carta:
@@ -33,12 +32,23 @@ class Partida:
         j_sum = self.jugador.cardSum
         c_sum = self.crupier.cardSum
 
-        if j_sum > c_sum or c_sum > 21:
-            print(f'¡%s Ha ganado con %i puntos!' % (self.jugador.nombre, j_sum))
+        j_dif = abs(j_sum - 21)
+        c_dif = abs(c_sum - 21)
+
+        self.jugador.mostrarCartas()
+        self.crupier.mostrarCartas()
+
+        if (c_sum > 21 and j_sum <= 21) or \
+                (((21 < j_sum < c_sum) or (21 > j_sum > c_sum)) and (c_sum > 21 or j_dif < c_dif)):
+            print(f'¡%s ha ganado con %i puntos!' % (self.jugador.nombre, j_sum))
             print(f'Los %i puntos del Crupier no han sido suficientes para detenerte' % c_sum)
             print('¡Felicidades!')
 
-        elif c_sum > j_sum or j_sum > 21:
+        elif j_sum == c_sum:
+            print('¡Uy! Es un empate')
+            print('Esto no se queda así, esto se resolverá en otra ocasión')
+
+        else:
             print(f'Los %i no han sido suficientes, %s' % (j_sum, self.jugador.nombre))
             print(f'¡El Crupier ha ganado magistralmente con %i puntos!' % c_sum)
             print('La próxima será')
