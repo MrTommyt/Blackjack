@@ -1,0 +1,21 @@
+import pygame
+
+global screen
+
+if __name__ == '__main__':
+    # Initialize
+    pygame.init()
+
+    # Initialize the screen = pygame.display.set_mode((800, 600))
+
+    # Title and icon
+    pygame.display.set_caption("BlackJack")
+    icon = pygame.image.load('assets/blackjack.png')
+    pygame.display.set_icon(icon)
+
+    # Game loop
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
