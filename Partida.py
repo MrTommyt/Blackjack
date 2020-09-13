@@ -37,7 +37,7 @@ class Partida:
         c_dif = abs(c_sum - 21)
 
         self.jugador.mostrarCartas()
-        self.crupier.mostrarCartas()
+        self.crupier.mostrarCartas(mostrar=True)
 
         if (c_sum > 21 and j_sum <= 21) or \
                 (((21 < j_sum < c_sum) or (21 > j_sum > c_sum)) and (c_sum > 21 or j_dif < c_dif)):

@@ -1,6 +1,14 @@
 from cards import Baraja
+import os
 
 Line = '---------------------------'
+
+
+def clear():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 class Jugador:
@@ -39,6 +47,8 @@ class Jugador:
                 break
             except TypeError:
                 print('El valor ingresado no es un número válido')
+
+        clear()
 
     def stay(self):
         self.acabar = True
@@ -88,3 +98,29 @@ class Crupier(Jugador):
 
         else:
             self.hit()
+
+    def mostrarCartas(self, mostrar: bool = False):
+        space = ' '
+        space *= (len(Line) - len(self.nombre) - 7)
+        print(f'{Line}--')
+
+        if not mostrar:
+            print(f'| [{self.baraja[0].valor}]\t{self.nombre}{space}|')
+        else:
+            print(f'| [{self.baraja.valor}]\t{self.nombre}{space}|')
+
+        print(f'{Line}--')
+        print('|| ', end='')
+
+        for i in range(len(self.baraja)):
+            if i > 0 and not mostrar:
+                print(f'??', end='')
+            else:
+                print(f'{str(self.baraja[i].valor)}{self.baraja[i].simbolo}', end='')
+
+            if i < len(self.baraja) - 1:
+                print(' | ', end='')
+
+        print(f' ||')
+        print(f'{Line}--')
+        print()
