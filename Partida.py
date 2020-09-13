@@ -6,6 +6,7 @@ class Partida:
     def __init__(self, name: str, baraja: Baraja = Baraja(generar=True)):
         self.jugador = Jugador(name, baraja)
         self.crupier = Crupier(baraja)
+        self.otra = False
         self.jugando = True
         self.baraja = baraja
 
@@ -21,7 +22,7 @@ class Partida:
         self.jugador.Turnar()
 
         if self.jugador.acabar or self.crupier.acabar:
-            if not self.crupier.acabar:
+            if len(self.jugador.baraja) > len(self.crupier.baraja):
                 self.crupier.Turnar()
             self.acabar()
 
@@ -52,6 +53,15 @@ class Partida:
             print(f'Los %i no han sido suficientes, %s' % (j_sum, self.jugador.nombre))
             print(f'¡El Crupier ha ganado magistralmente con %i puntos!' % c_sum)
             print('La próxima será')
+
+        print()
+        r = str(input('Dele a enter para jugar otra vez o coloque n y dele a enter para salir '))
+
+        if r == 'n' or r == 'N':
+            self.otra = False
+        else:
+            self.otra = True
+        print()
 
         self.jugando = False
 
