@@ -1,2 +1,7 @@
 /assets/
 /venv/
+
+# Pyinstaller
+/dist/
+/build/
+/main.spec
