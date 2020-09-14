@@ -1,4 +1,4 @@
-from cards import Baraja
+from Cartas import Baraja
 import os
 
 Line = '---------------------------'
@@ -93,10 +93,7 @@ class Crupier(Jugador):
             self.acabar = True
 
     def Turnar(self):
-        if self.cardSum > 16:
-            self.stay()
-
-        else:
+        if self.cardSum < 16:
             self.hit()
 
     def mostrarCartas(self, mostrar: bool = False):

@@ -1,5 +1,5 @@
-from cards import Baraja, Carta
-from jugador import Jugador, Crupier
+from Cartas import Baraja, Carta
+from Jugador import Jugador, Crupier
 
 
 class Partida:

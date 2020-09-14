@@ -1,5 +1,3 @@
-#!/bin/python
-
 from Partida import Partida
 from getpass import getuser
 import os
