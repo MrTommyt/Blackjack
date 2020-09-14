@@ -34,8 +34,8 @@ class Jugador:
         while 1:
             try:
                 print(f'Por medio del siguiente puede seleccionar las acciones que desea realizar')
-                print('1. Hit')
-                print('2. Stay')
+                print('1. Tomar')
+                print('2. Parar')
                 respuesta = int(input())
 
                 if (not isinstance(respuesta, int)) or (not respuesta > 0 and not respuesta < 3):
