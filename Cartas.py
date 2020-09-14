@@ -45,8 +45,8 @@ class Valor:
 
 class Carta:
     def __init__(self, valor: Valor, palo: Palo = Palo.getRandomPalo()):
-        self.valor = valor.value
-        self.figura = valor
+        self.value = valor.value
+        self.valor = valor
         self.palo = palo
         self.simbolo = palo.value[1]
 
@@ -68,7 +68,7 @@ class Baraja:
     def __add__(self, other):
         if isinstance(other, Carta):
             self.cartas.append(other)
-            self.valor += other.valor
+            self.valor += other.value
 
         elif isinstance(other, Baraja):
             self.cartas.extend(other.cartas)
@@ -84,8 +84,8 @@ class Baraja:
     def __valor(self) -> int:
         suma = 0
         for carta in self.cartas:
-            print(suma, carta.valor)
-            suma += carta.valor
+            print(suma, carta.value)
+            suma += carta.value
 
         return suma
 

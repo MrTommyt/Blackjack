@@ -10,20 +10,20 @@ class Partida:
         self.jugando = True
         self.baraja = baraja
 
-        self.jugador.baraja + self.baraja.getRandom()
-        self.crupier.baraja + self.baraja.getRandom()
-        self.jugador.baraja + self.baraja.getRandom()
+        self.baraja = self.jugador.addCarta(self.baraja.getRandom())
+        self.baraja = self.crupier.addCarta(self.baraja.getRandom())
+        self.baraja = self.jugador.addCarta(self.baraja.getRandom())
 
     def Turnar(self):
         self.jugador.mostrarCartas()
         self.crupier.mostrarCartas()
 
-        self.crupier.Turnar()
-        self.jugador.Turnar()
+        self.baraja = self.crupier.Turnar(self.baraja)
+        self.baraja = self.jugador.Turnar(self.baraja)
 
         if self.jugador.acabar or self.crupier.acabar:
             if len(self.jugador.baraja) > len(self.crupier.baraja):
-                self.crupier.Turnar()
+                self.baraja = self.crupier.Turnar(self.baraja)
             self.acabar()
 
     def getCarta(self) -> Carta:

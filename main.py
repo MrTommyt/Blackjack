@@ -1,3 +1,4 @@
+from Cartas import Baraja
 from Partida import Partida
 from getpass import getuser
 import os
@@ -13,7 +14,7 @@ def clear():
 if __name__ == '__main__':
     while 1:
         clear()
-        partida = Partida(getuser())
+        partida = Partida(getuser(), baraja=Baraja(generar=True))
         while partida.jugando:
             partida.Turnar()
 

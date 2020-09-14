@@ -1,4 +1,4 @@
-from Cartas import Baraja
+from Cartas import Baraja, Carta
 import os
 
 Line = '---------------------------'
@@ -28,7 +28,8 @@ class Jugador:
         if self.cardSum > 21:
             self.acabar = True
 
-    def Turnar(self):
+    def Turnar(self, baraja: Baraja) -> Baraja:
+        self.mazo = baraja
         self.cardSum = self.baraja.valor
         while 1:
             try:
@@ -49,6 +50,7 @@ class Jugador:
                 print('El valor ingresado no es un número válido')
 
         clear()
+        return self.mazo
 
     def stay(self):
         self.acabar = True
@@ -61,7 +63,7 @@ class Jugador:
         print('|| ', end='')
 
         for i in range(len(self.baraja)):
-            print(f'{str(self.baraja[i].valor)}{self.baraja[i].simbolo}', end='')
+            print(f'{str(self.baraja[i].valor.sign)}{self.baraja[i].simbolo}', end='')
 
             if i < len(self.baraja) - 1:
                 print(' | ', end='')
@@ -69,6 +71,13 @@ class Jugador:
         print(f' ||')
         print(f'{Line}--')
         print()
+
+    def addCarta(self, carta: Carta) -> Baraja:
+        self.baraja + carta
+        for card in self.mazo.cartas:
+            if carta == card:
+                self.mazo.cartas.remove(card)
+        return self.mazo
 
 
 class Crupier(Jugador):
@@ -78,8 +87,8 @@ class Crupier(Jugador):
     def hit(self):
         carta = self.mazo.getRandom()
 
-        if carta.figura == 'A':
-            if carta.valor + self.cardSum < 21:
+        if carta.valor == 'A':
+            if carta.value + self.cardSum < 21:
                 self.cardSum = self.baraja.valor + 11
                 self.baraja + carta
             else:
@@ -92,9 +101,12 @@ class Crupier(Jugador):
         if self.cardSum > 21:
             self.acabar = True
 
-    def Turnar(self):
+    def Turnar(self, baraja: Baraja) -> Baraja:
+        self.mazo = baraja
         if self.cardSum < 16:
             self.hit()
+
+        return self.mazo
 
     def mostrarCartas(self, mostrar: bool = False):
         space = ' '
@@ -102,7 +114,7 @@ class Crupier(Jugador):
         print(f'{Line}--')
 
         if not mostrar:
-            print(f'| [{self.baraja[0].valor}]\t{self.nombre}{space}|')
+            print(f'| [{self.baraja[0].value}]\t{self.nombre}{space}|')
         else:
             print(f'| [{self.baraja.valor}]\t{self.nombre}{space}|')
 
@@ -113,7 +125,7 @@ class Crupier(Jugador):
             if i > 0 and not mostrar:
                 print(f'??', end='')
             else:
-                print(f'{str(self.baraja[i].valor)}{self.baraja[i].simbolo}', end='')
+                print(f'{str(self.baraja[i].valor.sign)}{self.baraja[i].simbolo}', end='')
 
             if i < len(self.baraja) - 1:
                 print(' | ', end='')
