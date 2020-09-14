@@ -45,7 +45,7 @@ class Jugador:
                 elif respuesta == 2:
                     self.stay()
                 break
-            except TypeError:
+            except TypeError and ValueError:
                 print('El valor ingresado no es un número válido')
 
         clear()
